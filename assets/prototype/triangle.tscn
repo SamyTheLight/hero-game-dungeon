@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/prototype/triangle.svg" id="Texture"]
+
+[node name="Triangle" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("Texture")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -80, 96, 80, -96, 80)

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+<polygon points="1.5,1.5 62.5,1.5 62.5,193.5 254.5,193.5 254.5,254.5 1.5,254.5" fill="#858b92"/>
+<path d="M32 0V256 M64 192V256 M96 192V256 M128 192V256 M160 192V256 M192 192V256 M224 192V256 M0 32H64 M0 64H64 M0 96H64 M0 128H64 M0 160H64 M0 192H256 M0 224H256" fill="none" stroke="#626970" stroke-width="1"/>
+<polygon points="1.5,1.5 62.5,1.5 62.5,193.5 254.5,193.5 254.5,254.5 1.5,254.5" fill="none" stroke="#c6ccd2" stroke-width="3"/>
+</svg>

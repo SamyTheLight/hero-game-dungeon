@@ -1,0 +1,162 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="Player"]
+[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="Enemy"]
+[ext_resource type="PackedScene" path="res://assets/prototype/square.tscn" id="square"]
+[ext_resource type="PackedScene" path="res://assets/prototype/rectangle.tscn" id="rectangle"]
+[ext_resource type="PackedScene" path="res://assets/prototype/circle.tscn" id="circle"]
+[ext_resource type="PackedScene" path="res://assets/prototype/triangle.tscn" id="triangle"]
+[ext_resource type="PackedScene" path="res://assets/prototype/corner.tscn" id="corner"]
+[ext_resource type="Texture2D" path="res://assets/prototype/floor.svg" id="Floor"]
+[ext_resource type="Texture2D" path="res://assets/prototype/boundary.svg" id="Boundary"]
+
+[sub_resource type="RectangleShape2D" id="HorizontalWall"]
+size = Vector2(2400, 32)
+
+[sub_resource type="RectangleShape2D" id="VerticalWall"]
+size = Vector2(32, 1536)
+
+[node name="Test_level" type="Node2D"]
+
+[node name="Floor" type="Sprite2D" parent="."]
+position = Vector2(1200, 800)
+texture = ExtResource("Floor")
+
+[node name="Boundary" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Boundary"]
+position = Vector2(1200, 800)
+texture = ExtResource("Boundary")
+
+[node name="Top" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(1200, 16)
+shape = SubResource("HorizontalWall")
+
+[node name="Bottom" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(1200, 1584)
+shape = SubResource("HorizontalWall")
+
+[node name="Left" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(16, 800)
+shape = SubResource("VerticalWall")
+
+[node name="Right" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(2384, 800)
+shape = SubResource("VerticalWall")
+
+[node name="Square" parent="." instance=ExtResource("square")]
+position = Vector2(450, 400)
+
+[node name="Circle" parent="." instance=ExtResource("circle")]
+position = Vector2(950, 400)
+
+[node name="Triangle" parent="." instance=ExtResource("triangle")]
+position = Vector2(1450, 400)
+
+[node name="Corner" parent="." instance=ExtResource("corner")]
+position = Vector2(2000, 400)
+
+[node name="WidePassageTop" parent="." instance=ExtResource("rectangle")]
+position = Vector2(650, 1050)
+
+[node name="WidePassageBottom" parent="." instance=ExtResource("rectangle")]
+position = Vector2(650, 1274)
+
+[node name="NarrowPassageTop" parent="." instance=ExtResource("rectangle")]
+position = Vector2(1250, 1050)
+
+[node name="NarrowPassageBottom" parent="." instance=ExtResource("rectangle")]
+position = Vector2(1250, 1210)
+
+[node name="Player" parent="." instance=ExtResource("Player")]
+position = Vector2(360, 800)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.65, 0.65)
+limit_left = 0
+limit_top = 0
+limit_right = 2400
+limit_bottom = 1600
+
+[node name="Enemy" parent="." instance=ExtResource("Enemy")]
+position = Vector2(1850, 1050)
+
+[node name="CombatAreaLabel" type="Label" parent="."]
+offset_left = 1610.0
+offset_top = 750.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 28
+text = "Interaction and combat area"
+
+[node name="EnemyLabel" type="Label" parent="."]
+offset_left = 1790.0
+offset_top = 940.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "Enemy"
+
+[node name="Title" type="Label" parent="."]
+offset_left = 64.0
+offset_top = 48.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 32
+text = "TEST LEVEL - MOVEMENT AND COLLISIONS"
+
+[node name="Controls" type="Label" parent="."]
+offset_left = 64.0
+offset_top = 94.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "Click: move to point  |  Hold: follow mouse  |  Release after holding: stop"
+
+[node name="SquareLabel" type="Label" parent="."]
+offset_left = 390.0
+offset_top = 288.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "Square"
+
+[node name="CircleLabel" type="Label" parent="."]
+offset_left = 902.0
+offset_top = 288.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "Circle"
+
+[node name="TriangleLabel" type="Label" parent="."]
+offset_left = 1400.0
+offset_top = 272.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "Triangle"
+
+[node name="CornerLabel" type="Label" parent="."]
+offset_left = 1920.0
+offset_top = 238.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "L-shaped corner"
+
+[node name="WideLabel" type="Label" parent="."]
+offset_left = 490.0
+offset_top = 1342.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "Wide passage: 160 px"
+
+[node name="NarrowLabel" type="Label" parent="."]
+offset_left = 1090.0
+offset_top = 1292.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "Blocked passage: 96 px"
