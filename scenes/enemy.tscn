@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d1uebg5skikr"]
 
-[ext_resource type="Texture2D" uid="uid://6i4mv2ukjm4o" path="res://icon.svg" id="1_7p1mj"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cpl2osub1bt46" path="res://scripts/enemy.gd" id="1_md0e3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
@@ -10,7 +10,18 @@ size = Vector2(128, 128)
 script = ExtResource("1_md0e3")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=528843065]
+modulate = Color(1, 0.55, 0.47, 1)
 texture = ExtResource("1_7p1mj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1313520003]
 shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="InteractionHint" type="Label" parent="."]
+visible = false
+offset_left = -120.0
+offset_top = -108.0
+offset_right = 120.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 22
+text = "E / Click to battle"
+horizontal_alignment = 1

@@ -11,6 +11,11 @@ var _target_position: Vector2
 var _is_moving: bool = false
 var _is_mouse_pressed: bool = false
 var _mouse_press_time_msec: int = 0
+var _interaction_target: DungeonEnemy
+
+
+func _ready() -> void:
+	add_to_group("player")
 
 
 func _input(event: InputEvent) -> void:
@@ -25,22 +30,82 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact") and not event.is_echo():
+		_interact_with_nearby_enemy()
+		get_viewport().set_input_as_handled()
+		return
 	if not event is InputEventMouseButton:
 		return
 	if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
 		return
 
+	var mouse_position: Vector2 = get_canvas_transform().affine_inverse() * event.position
+	var enemy := _enemy_at_position(mouse_position)
+	if enemy != null:
+		cancel_movement()
+		_interaction_target = enemy
+		_target_position = enemy.global_position
+		_is_moving = true
+		get_viewport().set_input_as_handled()
+		return
+
+	_interaction_target = null
 	_is_mouse_pressed = true
 	_mouse_press_time_msec = Time.get_ticks_msec()
-	_target_position = get_global_mouse_position()
+	_target_position = mouse_position
 	_is_moving = true
 	get_viewport().set_input_as_handled()
 
 
 func _physics_process(delta: float) -> void:
+	if is_instance_valid(_interaction_target):
+		if _interaction_target.can_interact(self):
+			_begin_battle(_interaction_target)
+			return
+		_target_position = _interaction_target.global_position
 	_update_mouse_hold()
 	if _is_moving:
 		_move_toward_target(delta)
+	else:
+		_interaction_target = null
+
+
+func cancel_movement() -> void:
+	_is_mouse_pressed = false
+	_interaction_target = null
+	_stop_moving()
+
+
+func _enemy_at_position(world_position: Vector2) -> DungeonEnemy:
+	var query := PhysicsPointQueryParameters2D.new()
+	query.position = world_position
+	query.collision_mask = collision_mask
+	query.exclude = [get_rid()]
+	query.collide_with_areas = false
+	for hit in get_world_2d().direct_space_state.intersect_point(query):
+		if hit["collider"] is DungeonEnemy:
+			return hit["collider"] as DungeonEnemy
+	return null
+
+
+func _interact_with_nearby_enemy() -> void:
+	var closest_enemy: DungeonEnemy
+	var closest_distance: float = INF
+	for node in get_tree().get_nodes_in_group("enemies"):
+		var enemy := node as DungeonEnemy
+		if enemy == null or not enemy.can_interact(self):
+			continue
+		var distance := global_position.distance_to(enemy.global_position)
+		if distance < closest_distance:
+			closest_enemy = enemy
+			closest_distance = distance
+	if closest_enemy != null:
+		_begin_battle(closest_enemy)
+
+
+func _begin_battle(enemy: DungeonEnemy) -> void:
+	cancel_movement()
+	enemy.start_battle()
 
 
 func _update_mouse_hold() -> void:

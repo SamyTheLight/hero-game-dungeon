@@ -1,0 +1,270 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/battle.gd" id="BattleScript"]
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.105, 0.135, 0.19, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24, 0.3, 0.39, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="Button"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.2, 0.28, 0.38, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id="Hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.27, 0.4, 0.52, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id="Pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.16, 0.23, 0.32, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id="Disabled"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.16, 0.21, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id="Focus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.65, 0.84, 1, 1)
+
+[sub_resource type="Theme" id="BattleTheme"]
+default_font_size = 16
+Label/colors/font_color = Color(0.88, 0.92, 0.98, 1)
+Button/colors/font_color = Color(0.95, 0.98, 1, 1)
+Button/colors/font_disabled_color = Color(0.42, 0.49, 0.58, 1)
+Button/styles/normal = SubResource("Button")
+Button/styles/hover = SubResource("Hover")
+Button/styles/pressed = SubResource("Pressed")
+Button/styles/disabled = SubResource("Disabled")
+Button/styles/focus = SubResource("Focus")
+PanelContainer/styles/panel = SubResource("Panel")
+VBoxContainer/constants/separation = 6
+HBoxContainer/constants/separation = 12
+
+[node name="Battle" type="CanvasLayer"]
+layer = 10
+script = ExtResource("BattleScript")
+
+[node name="Screen" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("BattleTheme")
+
+[node name="Background" type="ColorRect" parent="Screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.045, 0.065, 0.1, 1)
+
+[node name="Margin" type="MarginContainer" parent="Screen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 18
+
+[node name="Layout" type="VBoxContainer" parent="Screen/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="HBoxContainer" parent="Screen/Margin/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Screen/Margin/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "D6 BATTLE"
+
+[node name="RoundLabel" type="Label" parent="Screen/Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.79, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "ROUND 1"
+
+[node name="Instructions" type="Label" parent="Screen/Margin/Layout"]
+layout_mode = 2
+text = "Select an enemy, keep a die result, use it once, then end your turn. All surviving enemies act."
+
+[node name="Fighters" type="HBoxContainer" parent="Screen/Margin/Layout"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 110)
+
+[node name="HeroPanel" type="PanelContainer" parent="Screen/Margin/Layout/Fighters"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="Details" type="VBoxContainer" parent="Screen/Margin/Layout/Fighters/HeroPanel"]
+layout_mode = 2
+
+[node name="HeroName" type="Label" parent="Screen/Margin/Layout/Fighters/HeroPanel/Details"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.79, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "HERO"
+
+[node name="HeroHealth" type="Label" parent="Screen/Margin/Layout/Fighters/HeroPanel/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "HP"
+
+[node name="HeroBlock" type="Label" parent="Screen/Margin/Layout/Fighters/HeroPanel/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Block: 0"
+
+[node name="EnemyPanel" type="PanelContainer" parent="Screen/Margin/Layout/Fighters"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Details" type="VBoxContainer" parent="Screen/Margin/Layout/Fighters/EnemyPanel"]
+layout_mode = 2
+
+[node name="EnemySummary" type="Label" parent="Screen/Margin/Layout/Fighters/EnemyPanel/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.47, 1)
+text = "Enemies"
+
+[node name="EnemyScroll" type="ScrollContainer" parent="Screen/Margin/Layout/Fighters/EnemyPanel/Details"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="EnemyCards" type="HBoxContainer" parent="Screen/Margin/Layout/Fighters/EnemyPanel/Details/EnemyScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DicePanel" type="PanelContainer" parent="Screen/Margin/Layout"]
+layout_mode = 2
+
+[node name="DiceLayout" type="VBoxContainer" parent="Screen/Margin/Layout/DicePanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PhaseLabel" type="Label" parent="Screen/Margin/Layout/DicePanel/DiceLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ROLL"
+
+[node name="DieResult" type="Label" parent="Screen/Margin/Layout/DicePanel/DiceLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.83, 0.48, 1)
+text = "D6"
+
+[node name="Actions" type="HBoxContainer" parent="Screen/Margin/Layout/DicePanel/DiceLayout"]
+layout_mode = 2
+
+[node name="RerollButton" type="Button" parent="Screen/Margin/Layout/DicePanel/DiceLayout/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reroll (2 left)"
+
+[node name="KeepButton" type="Button" parent="Screen/Margin/Layout/DicePanel/DiceLayout/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Keep result"
+
+[node name="UseButton" type="Button" parent="Screen/Margin/Layout/DicePanel/DiceLayout/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Use result"
+
+[node name="Faces" type="Label" parent="Screen/Margin/Layout"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.63, 0.7, 0.79, 1)
+text = "D6 faces:  [1] Attack 1   [2] Attack 2   [3] Attack 3   [4] Block 2   [5] Block 3   [6] Heal 2"
+
+[node name="BattleLog" type="Label" parent="Screen/Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 14
+text = "Battle log"
+
+[node name="Footer" type="HBoxContainer" parent="Screen/Margin/Layout"]
+layout_mode = 2
+
+[node name="EndTurnButton" type="Button" parent="Screen/Margin/Layout/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "End turn"
+
+[node name="Hint" type="Label" parent="Screen/Margin/Layout/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.63, 0.7, 0.79, 1)
+text = "Each battle starts at full health."
+
+[node name="RetreatButton" type="Button" parent="Screen/Margin/Layout/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Retreat"
+
+[node name="ReturnButton" type="Button" parent="Screen/Margin/Layout/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+text = "Return to level"

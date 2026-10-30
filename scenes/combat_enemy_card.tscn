@@ -1,0 +1,61 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/enemy_card.gd" id="CardScript"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="Icon"]
+
+[node name="EnemyCard" type="Button"]
+custom_minimum_size = Vector2(190, 164)
+size_flags_horizontal = 3
+toggle_mode = true
+script = ExtResource("CardScript")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="EnemyName" type="Label" parent="Layout"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 18
+text = "Enemy"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="Icon" type="TextureRect" parent="Layout"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("Icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Health" type="Label" parent="Layout"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+text = "HP"
+horizontal_alignment = 1
+
+[node name="Intent" type="Label" parent="Layout"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 14
+text = "Attack"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="Layout"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.83, 0.48, 1)
+theme_override_font_sizes/font_size = 14
+text = "Click to target"
+horizontal_alignment = 1

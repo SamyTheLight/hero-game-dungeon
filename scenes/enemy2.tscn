@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="BaseEnemy"]
+
+[node name="Enemy2" instance=ExtResource("BaseEnemy")]
+display_name = "Raider"
+max_health = 6
+attack_damage = 1
+encounter_size = 3
+
+[node name="Sprite2D" parent="." index="0"]
+modulate = Color(1, 0.8, 0.4, 1)
+
+[node name="EncounterLabel" type="Label" parent="."]
+offset_left = -140.0
+offset_top = 76.0
+offset_right = 140.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 22
+text = "Enemy2 - 3 enemies"
+horizontal_alignment = 1
